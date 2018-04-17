@@ -11,7 +11,7 @@ Please refer to:
 
 Download https://github.com/filippobottega/ShareFix/releases/latest, unzip and run ShareFix.exe.
 
-![1524003739414](C:\Users\Filippo\Documents\GitHub\ShareFix\ScreenShots\1524003739414.png)
+![1524003739414](https://github.com/filippobottega/ShareFix/blob/master/ScreenShots/1524003739414.png)
 
 The program shows the network interfaces and let you choose to:
 
