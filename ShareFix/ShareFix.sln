@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ShareFix", "ShareFix\ShareFix.vbproj", "{414E7F02-D9E2-4C96-A138-C3FA73E6D0F9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D95FC072-98B3-4AAC-B561-E86454B0739C}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,14 +26,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9289947-F07B-487B-A602-FCE61A69A495}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://win-lhs83o5a3an:8080/tfs/privatecollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = ShareFix\\ShareFix.vbproj
-		SccProjectName1 = ShareFix
-		SccLocalPath1 = ShareFix
 	EndGlobalSection
 EndGlobal
