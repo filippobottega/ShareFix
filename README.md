@@ -19,6 +19,6 @@ E: exit from the program
 
 A: reguild bindings of all interfaces
 
-A..N: select an interface for witch you need to rebuild the registry bindings
+1..N: select an interface for witch you need to rebuild the registry bindings
 
 If you select A the program wll ask you if you want to delete the old values before adding new ones.
