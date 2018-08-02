@@ -50,7 +50,7 @@ Module MainModule
         FixInterface(guids(index))
       Next
     ElseIf Integer.TryParse(input, Nothing) Then
-      Dim indexToFix = CInt(Console.ReadLine)
+      Dim indexToFix = CInt(input)
       If indexToFix < 0 OrElse indexToFix > subKeyNames.Count - 1 Then
         Console.WriteLine()
         Console.Write($"Index {indexToFix} doesn't exist, press a key to exit")
