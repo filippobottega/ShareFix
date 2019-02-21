@@ -2,6 +2,7 @@
 # Il file gitignore è stato creato automaticamente da Microsoft(R) Visual Studio.
 ################################################################################
 
-/ShareFix/.vs/ShareFix/v15
-/ShareFix/ShareFix/bin/Debug
-/ShareFix/ShareFix/obj/Debug
+/ShareFix/.vs
+/ShareFix/ShareFix/bin
+/ShareFix/ShareFix/obj
+/.vs

@@ -5,16 +5,56 @@ Imports Microsoft.Win32
 Module MainModule
 
   Sub Main()
+    Dim silent = False
     Try
-      FixRegistry()
+      Dim commandLineArgs = Environment.GetCommandLineArgs
+      If commandLineArgs.Count > 2 Then
+        ShowGuide()
+      End If
+      If commandLineArgs.Count = 2 Then
+        Select Case commandLineArgs(1)
+          Case "--silent"
+            silent = True
+            FixRegistry(silent)
+          Case "--help"
+            ShowGuide()
+          Case Else
+            ShowGuide()
+        End Select
+      End If
+      If commandLineArgs.Count = 1 Then
+        FixRegistry()
+      End If
     Catch ex As Exception
-      Console.WriteLine(ex.ToString)
+      Console.Error.WriteLine(ex.ToString)
+      If Not silent Then
+        Console.Write("Press a key to exit")
+        Console.ReadKey()
+      End If
+      Environment.Exit(-1)
+    End Try
+    If Not silent Then
+      Console.WriteLine()
       Console.Write("Press a key to exit")
       Console.ReadKey()
-    End Try
+    End If
   End Sub
 
-  Private Sub FixRegistry()
+  Private Sub ShowGuide()
+    Console.WriteLine($"
+ShareFix
+Command line tool to fix NetBios and SMB registry bindings on Windows 10
+https://github.com/filippobottega/ShareFix
+
+Usage:
+- run ShareFix.exe from command line to show the CLI interface
+- run ShareFix.exe --silent to run application whitout user interaction (Options used: All and clear old values)
+- run ShareFix.exe --help to show this guide
+
+")
+  End Sub
+
+  Private Sub FixRegistry(Optional silent As Boolean = False)
     Dim adapters = NetworkInterface.GetAllNetworkInterfaces().ToDictionary(Function(item) item.Id, Function(item) item)
 
     Dim interfaces = Registry.LocalMachine.OpenSubKey("SYSTEM\CurrentControlSet\Services\NetBT\Parameters\Interfaces")
@@ -37,12 +77,26 @@ Module MainModule
     Next
     Console.WriteLine()
     Console.Write("Please select index of interface to fix (E:exit, A:All, 1..N: single interface):")
-    Dim input = Console.ReadLine
+
+    Dim input As String
+    If silent Then
+      input = "A"
+      Console.WriteLine("A")
+    Else
+      input = Console.ReadLine
+    End If
 
     If UCase(input) = "E" Then Return
     If UCase(input) = "A" Then
       Console.Write("Do you want to clear old values? (Y/N) ")
-      Dim clear = Console.ReadLine
+      Dim clear As String
+      If silent Then
+        clear = "Y"
+        Console.WriteLine("Y")
+      Else
+        clear = Console.ReadLine
+      End If
+
       If UCase(clear) = "Y" Then
         ClearOldValues()
       End If
@@ -50,24 +104,17 @@ Module MainModule
         FixInterface(guids(index))
       Next
     ElseIf Integer.TryParse(input, Nothing) Then
-      Dim indexToFix = CInt(input)
+      Dim indexToFix = CInt(Console.ReadLine)
       If indexToFix < 0 OrElse indexToFix > subKeyNames.Count - 1 Then
         Console.WriteLine()
-        Console.Write($"Index {indexToFix} doesn't exist, press a key to exit")
-        Console.ReadKey()
+        Console.WriteLine($"Index {indexToFix} doesn't exist")
         Return
       End If
       FixInterface(guids(indexToFix))
     Else
       Console.WriteLine()
-      Console.Write($"Wrong input, press a key to exit")
-      Console.ReadKey()
-      Return
+      Console.WriteLine($"Wrong input")
     End If
-
-    Console.WriteLine()
-    Console.Write("Press a key to exit")
-    Console.ReadKey()
   End Sub
 
   Private Sub ClearOldValues()
