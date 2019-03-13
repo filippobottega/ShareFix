@@ -76,7 +76,7 @@ Usage:
       End If
     Next
     Console.WriteLine()
-    Console.Write("Please select index of interface to fix (E:exit, A:All, 1..N: single interface):")
+    Console.Write("Please select index of interface to fix (E:exit, A:All, 0..N: single interface):")
 
     Dim input As String
     If silent Then
@@ -104,7 +104,7 @@ Usage:
         FixInterface(guids(index))
       Next
     ElseIf Integer.TryParse(input, Nothing) Then
-      Dim indexToFix = CInt(Console.ReadLine)
+      Dim indexToFix = Integer.Parse(input)
       If indexToFix < 0 OrElse indexToFix > subKeyNames.Count - 1 Then
         Console.WriteLine()
         Console.WriteLine($"Index {indexToFix} doesn't exist")
